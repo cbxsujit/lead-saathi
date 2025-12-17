@@ -32,6 +32,12 @@ function doPost(e) {
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
       initializeSheet(sheet);
+    } else {
+      // Check if headers exist, if not add them
+      const lastRow = sheet.getLastRow();
+      if (lastRow === 0) {
+        initializeSheet(sheet);
+      }
     }
     
     const timestamp = getISTTimestamp();
