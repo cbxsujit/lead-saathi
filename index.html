@@ -399,6 +399,37 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .dashboard-link {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.3px;
+            animation: fadeInUp 0.6s ease-out 1s backwards;
+        }
+
+        .dashboard-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(8, 145, 178, 0.3);
+        }
+
+        .dashboard-link:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -489,6 +520,10 @@
                 <button type="submit" class="submit-btn" id="submitBtn">
                     Capture Lead
                 </button>
+
+                <a href="leadsathi-dashboard.html" target="_blank" class="dashboard-link">
+                    📊 View Dashboard
+                </a>
             </form>
         </div>
     </div>
