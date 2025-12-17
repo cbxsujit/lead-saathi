@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadSathi - Lead Capture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0891b2;
+            --primary-dark: #0e7490;
+            --primary-light: #06b6d4;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #94a3b8;
+            --border: #e2e8f0;
+            --bg-input: #f8fafc;
+            --success: #10b981;
+            --error: #ef4444;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-icon::before {
+            content: '📋';
+            font-size: 20px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(8, 145, 178, 0.1);
+            animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.4s; }
+        .form-group:nth-child(2) { animation-delay: 0.5s; }
+        .form-group:nth-child(3) { animation-delay: 0.6s; }
+        .form-group:nth-child(4) { animation-delay: 0.7s; }
+        .form-group:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .required {
+            color: var(--primary);
+            margin-left: 2px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-primary);
+            background: var(--bg-input);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
+            transform: translateY(-1px);
+        }
+
+        input[type="text"]:hover,
+        input[type="tel"]:hover,
+        select:hover,
+        textarea:hover {
+            border-color: var(--primary-light);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%230891b2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 500;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        input.error,
+        select.error,
+        textarea.error {
+            border-color: var(--error);
+            background: #fef2f2;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+            letter-spacing: 0.3px;
+            animation: fadeInUp 0.6s ease-out 0.9s backwards;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(8, 145, 178, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(8, 145, 178, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: var(--text-tertiary);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+            animation: successPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes successPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+            animation: rotate 0.6s ease-out;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(-180deg) scale(0);
+            }
+            to {
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        .helper-text {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 2px solid #fecaca;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .form-card {
+                padding: 24px 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon"></div>
+            </div>
+            <h1>LeadSathi</h1>
+            <p class="subtitle">Capture leads with ease</p>
+        </div>
+
+        <div class="alert alert-error" id="alertMessage"></div>
+
+        <div class="success-message" id="successMessage">
+            <span class="success-icon">✓</span>
+            <div>Lead captured successfully!</div>
+            <div style="font-size: 14px; margin-top: 8px; opacity: 0.9;">Data saved to Google Sheets</div>
+        </div>
+
+        <div class="form-card">
+            <form id="leadForm" novalidate>
+                <div class="form-group">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        placeholder="Enter full name"
+                        required
+                        autocomplete="name"
+                    >
+                    <div class="error-message" id="nameError">Please enter a valid name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">Mobile Number <span class="required">*</span></label>
+                    <input 
+                        type="tel" 
+                        id="mobile" 
+                        name="mobile" 
+                        placeholder="10-digit mobile number"
+                        maxlength="10"
+                        required
+                        autocomplete="tel"
+                    >
+                    <div class="helper-text">Enter 10-digit Indian mobile number</div>
+                    <div class="error-message" id="mobileError">Please enter a valid 10-digit mobile number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="businessType">Business Type <span class="required">*</span></label>
+                    <select id="businessType" name="businessType" required>
+                        <option value="">Select business type</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Service">Service</option>
+                        <option value="Trading">Trading</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div class="error-message" id="businessTypeError">Please select a business type</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="leadSource">Lead Source <span class="required">*</span></label>
+                    <select id="leadSource" name="leadSource" required>
+                        <option value="">Select lead source</option>
+                        <option value="Walk-in">Walk-in</option>
+                        <option value="Phone Call">Phone Call</option>
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="Referral">Referral</option>
+                        <option value="Exhibition">Exhibition</option>
+                        <option value="Website">Website</option>
+                    </select>
+                    <div class="error-message" id="leadSourceError">Please select a lead source</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea 
+                        id="notes" 
+                        name="notes" 
+                        placeholder="Add any additional information..."
+                        rows="4"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Capture Lead
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ IMPORTANT: Replace this with your Google Apps Script Web App URL
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzzWlIQZxzKMon_s_Ec3Yfx-juXnDVgkuV6uVtrr2VtsnWFkJWb99qvWZ3vyFUDz9fztA/exec';
+
+        const form = document.getElementById('leadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const alertMessage = document.getElementById('alertMessage');
+
+        // Form inputs
+        const nameInput = document.getElementById('name');
+        const mobileInput = document.getElementById('mobile');
+        const businessTypeSelect = document.getElementById('businessType');
+        const leadSourceSelect = document.getElementById('leadSource');
+        const notesInput = document.getElementById('notes');
+
+        // Validation functions
+        function validateName(name) {
+            return name.trim().length >= 2;
+        }
+
+        function validateMobile(mobile) {
+            const mobileRegex = /^[6-9]\d{9}$/;
+            return mobileRegex.test(mobile);
+        }
+
+        function showError(input, errorElement) {
+            input.classList.add('error');
+            errorElement.classList.add('show');
+        }
+
+        function hideError(input, errorElement) {
+            input.classList.remove('error');
+            errorElement.classList.remove('show');
+        }
+
+        function showAlert(message, type = 'error') {
+            alertMessage.textContent = message;
+            alertMessage.className = 'alert alert-' + type + ' show';
+            
+            setTimeout(() => {
+                alertMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        // Real-time validation
+        nameInput.addEventListener('blur', function() {
+            const nameError = document.getElementById('nameError');
+            if (this.value && !validateName(this.value)) {
+                showError(this, nameError);
+            } else {
+                hideError(this, nameError);
+            }
+        });
+
+        mobileInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
+        });
+
+        mobileInput.addEventListener('blur', function() {
+            const mobileError = document.getElementById('mobileError');
+            if (this.value && !validateMobile(this.value)) {
+                showError(this, mobileError);
+            } else {
+                hideError(this, mobileError);
+            }
+        });
+
+        businessTypeSelect.addEventListener('change', function() {
+            const businessTypeError = document.getElementById('businessTypeError');
+            hideError(this, businessTypeError);
+        });
+
+        leadSourceSelect.addEventListener('change', function() {
+            const leadSourceError = document.getElementById('leadSourceError');
+            hideError(this, leadSourceError);
+        });
+
+        // Form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Check if Google Script URL is configured
+            if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                showAlert('Please configure the Google Apps Script URL in the code', 'error');
+                return;
+            }
+
+            // Get form values
+            const name = nameInput.value.trim();
+            const mobile = mobileInput.value.trim();
+            const businessType = businessTypeSelect.value;
+            const leadSource = leadSourceSelect.value;
+            const notes = notesInput.value.trim();
+
+            // Validation
+            let isValid = true;
+
+            const nameError = document.getElementById('nameError');
+            if (!validateName(name)) {
+                showError(nameInput, nameError);
+                isValid = false;
+            } else {
+                hideError(nameInput, nameError);
+            }
+
+            const mobileError = document.getElementById('mobileError');
+            if (!validateMobile(mobile)) {
+                showError(mobileInput, mobileError);
+                isValid = false;
+            } else {
+                hideError(mobileInput, mobileError);
+            }
+
+            const businessTypeError = document.getElementById('businessTypeError');
+            if (!businessType) {
+                showError(businessTypeSelect, businessTypeError);
+                isValid = false;
+            } else {
+                hideError(businessTypeSelect, businessTypeError);
+            }
+
+            const leadSourceError = document.getElementById('leadSourceError');
+            if (!leadSource) {
+                showError(leadSourceSelect, leadSourceError);
+                isValid = false;
+            } else {
+                hideError(leadSourceSelect, leadSourceError);
+            }
+
+            if (!isValid) {
+                const firstError = form.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+
+            // Prepare data
+            const leadData = {
+                name: name,
+                mobile: mobile,
+                businessType: businessType,
+                leadSource: leadSource,
+                notes: notes || ''
+            };
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Saving';
+            alertMessage.classList.remove('show');
+
+            try {
+                // Send data to Google Apps Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Google Apps Script requires no-cors
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(leadData)
+                });
+
+                // Note: With no-cors, we can't read the response
+                // So we assume success if no error is thrown
+                
+                console.log('Lead submitted:', leadData);
+
+                // Show success message
+                successMessage.classList.add('show');
+                form.style.display = 'none';
+
+                // Reset form
+                form.reset();
+
+                // Hide success and show form after 3 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                    form.style.display = 'block';
+                }, 3000);
+
+            } catch (error) {
+                console.error('Error submitting lead:', error);
+                showAlert('Failed to submit lead. Please try again.', 'error');
+            } finally {
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Capture Lead';
+            }
+        });
+
+        // Check configuration on load
+        window.addEventListener('load', () => {
+            if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                console.warn('%c⚠️ Configuration Required!', 'color: #ef4444; font-size: 16px; font-weight: bold;');
+                console.log('%cPlease update GOOGLE_SCRIPT_URL with your Google Apps Script Web App URL', 'color: #f59e0b; font-size: 14px;');
+            } else {
+                console.log('%c✓ LeadSathi Connected', 'color: #10b981; font-size: 14px; font-weight: bold;');
+                console.log('Google Script URL:', GOOGLE_SCRIPT_URL);
+            }
+        });
+    </script>
+</body>
+</html>
