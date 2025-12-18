@@ -163,7 +163,7 @@ function getOverviewData() {
   
   // Calculate week start (Monday)
   const weekStart = new Date(now);
-  weekStart.setDate(now.getDate() - now.getDay() + 1);
+  weekStart.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1));
   const weekStartStr = Utilities.formatDate(weekStart, Session.getScriptTimeZone(), 'dd/MM/yyyy');
   
   // Calculate month start
@@ -175,16 +175,19 @@ function getOverviewData() {
   let monthCount = 0;
   
   data.forEach(row => {
-    const timestamp = row[0] ? row[0].toString() : '';
+    if (!row[0]) return;
+    
+    const timestamp = row[0].toString();
     const dateStr = timestamp.split(' ')[0];
+    const rowDate = parseDate(dateStr);
     
     if (dateStr === todayStr) {
       todayCount++;
     }
-    if (isDateAfterOrEqual(dateStr, weekStartStr)) {
+    if (rowDate >= parseDate(weekStartStr)) {
       weekCount++;
     }
-    if (isDateAfterOrEqual(dateStr, monthStartStr)) {
+    if (rowDate >= parseDate(monthStartStr)) {
       monthCount++;
     }
   });

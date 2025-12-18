@@ -553,7 +553,7 @@
             <div class="trend-card">
                 <div class="chart-header">
                     <div class="chart-title">Lead Trend</div>
-                    <div class="chart-subtitle">Daily lead capture over last 30 days</div>
+                    <div class="chart-subtitle">Daily lead capture over last 15 days</div>
                 </div>
                 <div class="trend-chart-container">
                     <canvas id="trendChart"></canvas>
@@ -575,7 +575,7 @@
 
     <script>
         // ⚠️ IMPORTANT: Use the same Google Apps Script Web App URL as your form
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwa0A4usKergK1WfMaKSGCGvfGpBQS_FzXgEKi3_R7j5cii3U8pVfFuN0-G1GBPWUzp/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycby3y3D5OLBXnREMAzWPefcBCyTwk8OfolXYe8YY9nlOUDv4l42M1yDJ-fJA7FjyRqcJnQ/exec';
         
         let charts = {
             sources: null,
@@ -604,7 +604,7 @@
                     fetchData('stats'),
                     fetchData('sources'),
                     fetchData('businessTypes'),
-                    fetchData('trend', '&days=30'),
+                    fetchData('trend', '&days=15'),
                     fetchData('recent', '&limit=10')
                 ]);
 
